@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "pilus_project"
+  site-url: "https://galopyz.github.io/pilus_project"
+  description: "Bacteria detection application written in pytorch"
+  repo-branch: main
+  repo-url: "https://github.com/galopyz/pilus_project"
