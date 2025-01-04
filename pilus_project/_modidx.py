@@ -5,4 +5,6 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://galopyz.github.io',
                 'git_url': 'https://github.com/galopyz/pilus_project',
                 'lib_path': 'pilus_project'},
-  'syms': {'pilus_project.core': {'pilus_project.core.foo': ('core.html#foo', 'pilus_project/core.py')}}}
+  'syms': { 'pilus_project.core': {'pilus_project.core.foo': ('core.html#foo', 'pilus_project/core.py')},
+            'pilus_project.microai': { 'pilus_project.microai.foo': ('microai.html#foo', 'pilus_project/microai.py'),
+                                       'pilus_project.microai.say_hello': ('microai.html#say_hello', 'pilus_project/microai.py')}}}
