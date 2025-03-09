@@ -6,19 +6,10 @@
 __all__ = ['ConvBlock', 'get_darknet19']
 
 # %% ../nbs/50_darknet.ipynb 4
-from minai import *
-
 import torch
 import torch.nn as nn
-from datasets import load_dataset, load_dataset_builder
-from torcheval.metrics import  MulticlassAccuracy
-import torchvision.transforms.v2.functional as TF
 
-import fastcore.all as fc, numpy as np, matplotlib as mpl, matplotlib.pyplot as plt
-
-import httpx
-
-# %% ../nbs/50_darknet.ipynb 31
+# %% ../nbs/50_darknet.ipynb 32
 class ConvBlock(nn.Module):
     def __init__(self, in_ch, out_ch, ks=3, use_norm=True, use_act=True, act=nn.LeakyReLU(0.1)):
         super().__init__()
@@ -30,7 +21,7 @@ class ConvBlock(nn.Module):
     def forward(self, x): 
         return self.act(self.norm(self.conv(x)))
 
-# %% ../nbs/50_darknet.ipynb 32
+# %% ../nbs/50_darknet.ipynb 33
 def get_darknet19(conv=ConvBlock, pool=nn.MaxPool2d(2)):
     return nn.Sequential(
             # Initial layers
