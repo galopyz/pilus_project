@@ -49,7 +49,7 @@ def calc_corners(csv, max_pos = 8.458666666666666e-05):
     df = pd.concat([df.iloc[:, 0], df.iloc[:, 1:] / max_pos], axis=1)
     return torch.tensor(df.to_numpy())
 
-# %% ../nbs/00_core.ipynb 26
+# %% ../nbs/00_core.ipynb 27
 @fc.delegates(plt.Axes.imshow)
 def imshow_with_boxes(im, boxes, figsize=(8,8), **kwargs):
     import matplotlib.patches as patches
@@ -104,7 +104,7 @@ def imshow_with_boxes(im, boxes, figsize=(8,8), **kwargs):
     plt.tight_layout()
     plt.show()
 
-# %% ../nbs/00_core.ipynb 33
+# %% ../nbs/00_core.ipynb 34
 def apply_clahe(image, clip_limit=2.0, tile_grid_size=(8,8)):
     if image.dtype != np.uint8:
         image = cv2.normalize(image, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
@@ -112,7 +112,7 @@ def apply_clahe(image, clip_limit=2.0, tile_grid_size=(8,8)):
     enhanced = clahe.apply(image)
     return enhanced
 
-# %% ../nbs/00_core.ipynb 34
+# %% ../nbs/00_core.ipynb 35
 def compare_ims(img1, img2):
     plt.figure(figsize=(12,6))
     plt.subplot(121)
