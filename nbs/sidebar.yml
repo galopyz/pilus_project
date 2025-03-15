@@ -2,4 +2,7 @@ website:
   sidebar:
     contents:
       - index.ipynb
-      - 00_microai.ipynb
+      - 00_core.ipynb
+      - 01_train.ipynb
+      - 50_darknet.ipynb
+      - 51_darknet_clas.ipynb
