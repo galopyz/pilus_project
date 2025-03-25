@@ -190,7 +190,6 @@ def get_stats_dataloader(data_path, bs=32, year='2007'):
 
 # %% ../nbs/51_pascal.ipynb 28
 from torch.utils.data import default_collate
-from operator import attrgetter, itemgetter
 
 # %% ../nbs/51_pascal.ipynb 30
 def create_voc_datasets(data_path, train_tfms=None, valid_tfms=None, year='2007'):
