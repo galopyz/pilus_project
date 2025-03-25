@@ -9,7 +9,7 @@ __all__ = ['get_simple_model', 'ConvBlock', 'get_darknet19']
 import torch
 import torch.nn as nn
 
-# %% ../nbs/50_darknet.ipynb 23
+# %% ../nbs/50_darknet.ipynb 24
 def get_simple_model():
     return nn.Sequential(
 #     nn.Conv2d(3, 16, kernel_size=3, stride=2, padding=1),
@@ -30,7 +30,7 @@ def get_simple_model():
         nn.Flatten()
 )
 
-# %% ../nbs/50_darknet.ipynb 33
+# %% ../nbs/50_darknet.ipynb 34
 class ConvBlock(nn.Module):
     def __init__(self, in_ch, out_ch, ks=3, use_norm=True, use_act=True, act=nn.LeakyReLU(0.1)):
         super().__init__()
@@ -42,7 +42,7 @@ class ConvBlock(nn.Module):
     def forward(self, x): 
         return self.act(self.norm(self.conv(x)))
 
-# %% ../nbs/50_darknet.ipynb 34
+# %% ../nbs/50_darknet.ipynb 35
 def get_darknet19(conv=ConvBlock, pool=nn.MaxPool2d(2)):
     return nn.Sequential(
             # Initial layers
