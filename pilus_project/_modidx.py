@@ -61,5 +61,4 @@ d = { 'settings': { 'branch': 'main',
                                             'pilus_project.pascal_class.show_voc_sample': ( 'pascal.html#show_voc_sample',
                                                                                             'pilus_project/pascal_class.py'),
                                             'pilus_project.pascal_class.voc_extract': ( 'pascal.html#voc_extract',
-                                                                                        'pilus_project/pascal_class.py')},
-            'pilus_project.pascal_detection': {}}}
+                                                                                        'pilus_project/pascal_class.py')}}}

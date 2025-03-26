@@ -5,4 +5,5 @@ website:
       - 00_core.ipynb
       - 01_train.ipynb
       - 50_darknet.ipynb
-      - 51_darknet_clas.ipynb
+      - 51_pascal.ipynb
+      - 52_detection.ipynb
