@@ -5,7 +5,7 @@
 # %% auto 0
 __all__ = ['VOC_CLASSES', 'xmean', 'xstd', 'show_voc_sample', 'get_class_distribution', 'get_image_sizes', 'show_class_examples',
            'calculate_dataset_stats', 'get_stats_dataloader', 'create_voc_datasets', 'voc_extract', 'onehot_tfm',
-           'denorm', 'get_classification_model', 'show_image_batch']
+           'denorm', 'get_classification_model']
 
 # %% ../nbs/51_pascal.ipynb 3
 from minai import *
@@ -239,7 +239,7 @@ def _rvs_onehot_tfm(onehot): return VOC_CLASSES[np.where(onehot == 1)[0]]
 xmean,xstd = (tensor([0.485, 0.456, 0.406]), tensor([0.229, 0.224, 0.225]))
 
 # %% ../nbs/51_pascal.ipynb 62
-def denorm(x): return (x*xstd[:,None,None]+xmean[:,None,None]).clip(0,1)
+def denorm(x): return (x*xstd[None,None,:]+xmean[None,None,:]).clip(0,1)
 
 # %% ../nbs/51_pascal.ipynb 64
 def get_classification_model(num_classes=len(VOC_CLASSES)):
@@ -255,21 +255,6 @@ def get_classification_model(num_classes=len(VOC_CLASSES)):
         nn.Linear(512, num_classes)
     )
     return model
-
-# %% ../nbs/51_pascal.ipynb 67
-@fc.patch
-@fc.delegates(show_images)
-def show_image_batch(self:Learner, max_n=9, cbs=None, tfm_x=None, tfm_y=None, **kwargs):
-    self.fit(1, cbs=[SingleBatchCB()]+fc.L(cbs))
-    xb,yb = to_cpu(self.batch)
-    feat = fc.nested_attr(self.dls, 'train.dataset.features')
-    if feat is None: titles = np.array(to_cpu(yb))     # when fitting, yb is in GPU
-    else:
-        names = feat['label'].names
-        titles = [names[i] for i in yb]
-    xb = tfm_x(xb[:max_n]) if tfm_x else xb[:max_n]
-    titles = tfm_y(titles[:max_n]) if tfm_y else titles[:max_n]
-    show_images(xb, titles=titles, **kwargs)
 
 # %% ../nbs/51_pascal.ipynb 80
 from torcheval.metrics import TopKMultilabelAccuracy
