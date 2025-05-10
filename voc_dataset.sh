@@ -41,3 +41,8 @@ mv VOCdevkit/VOC2012/labels/*.txt data/labels/
 rm -rf VOCdevkit/
 mv test.txt old_txt_files/
 mv train.txt old_txt_files/
+
+# Remove tar files
+rm VOCtest_06-Nov-2007.tar
+rm VOCtrainval_06-Nov-2007.tar
+rm VOCtrainval_11-May-2012.tar
