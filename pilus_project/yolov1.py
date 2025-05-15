@@ -225,15 +225,14 @@ def plot_image(image, boxes):
     if len(im.shape)==3 and im.shape[0]<5: im=im.transpose(1,2,0)
     height, width, _ = im.shape
 
-    # Create figure and axes
     fig, ax = plt.subplots(1)
-    # Display the image
     ax.imshow(im)
 
-    # box[0] is x midpoint, box[2] is width
-    # box[1] is y midpoint, box[3] is height
-
-    # Create a Rectangle potch
+    # boxes is a tensor, which is in cellboxes format
+    if not isinstance(boxes, list):
+        boxes = cellboxes_to_boxes(boxes.unsqueeze(0))[0]
+        
+    # box format is [x_mid, y_mid, width, height]
     for box in boxes:
         box = box[2:]
         assert len(box) == 4, "Got more values than in x, y, w, h, in a box!"
@@ -247,7 +246,6 @@ def plot_image(image, boxes):
             edgecolor="r",
             facecolor="none",
         )
-        # Add the patch to the Axes
         ax.add_patch(rect)
 
     plt.show()
