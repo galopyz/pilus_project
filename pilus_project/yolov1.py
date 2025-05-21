@@ -22,7 +22,7 @@ from fastcore.all import *
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 DEVICE
 
-# %% ../nbs/53_yolov1.ipynb 8
+# %% ../nbs/53_yolov1.ipynb 9
 def intersection_over_union(boxes_preds, boxes_labels, box_format="midpoint"):
     """
     Calculates intersection over union
@@ -69,7 +69,7 @@ def intersection_over_union(boxes_preds, boxes_labels, box_format="midpoint"):
 
     return intersection / (box1_area + box2_area - intersection + 1e-6)
 
-# %% ../nbs/53_yolov1.ipynb 10
+# %% ../nbs/53_yolov1.ipynb 13
 def non_max_suppression(bboxes, iou_threshold, threshold, box_format="corners"):
     """
     Does Non Max Suppression given bboxes
@@ -110,7 +110,7 @@ def non_max_suppression(bboxes, iou_threshold, threshold, box_format="corners"):
 
     return bboxes_after_nms
 
-# %% ../nbs/53_yolov1.ipynb 15
+# %% ../nbs/53_yolov1.ipynb 20
 def mean_average_precision(
     pred_boxes, true_boxes, iou_threshold=0.5, box_format="midpoint", num_classes=20
 ):
@@ -218,7 +218,7 @@ def mean_average_precision(
 
     return sum(average_precisions) / len(average_precisions)
 
-# %% ../nbs/53_yolov1.ipynb 17
+# %% ../nbs/53_yolov1.ipynb 22
 def plot_image(image, boxes):
     """Plots predicted bounding boxes on the image"""
     im = np.array(image)
@@ -250,7 +250,7 @@ def plot_image(image, boxes):
 
     plt.show()
 
-# %% ../nbs/53_yolov1.ipynb 18
+# %% ../nbs/53_yolov1.ipynb 24
 def get_bboxes(
     loader,
     model,
@@ -304,7 +304,7 @@ def get_bboxes(
     model.train()
     return all_pred_boxes, all_true_boxes
 
-# %% ../nbs/53_yolov1.ipynb 19
+# %% ../nbs/53_yolov1.ipynb 25
 def convert_cellboxes(predictions, S=7):
     """
     Converts bounding boxes output from Yolo with
@@ -366,7 +366,7 @@ def load_checkpoint(checkpoint, model, optimizer):
     model.load_state_dict(checkpoint["state_dict"])
     optimizer.load_state_dict(checkpoint["optimizer"])
 
-# %% ../nbs/53_yolov1.ipynb 22
+# %% ../nbs/53_yolov1.ipynb 29
 class VOCDataset(torch.utils.data.Dataset):
     def __init__(
         self, csv_file, img_dir, label_dir, S=7, B=2, C=20, transform=None,
@@ -448,7 +448,7 @@ class VOCDataset(torch.utils.data.Dataset):
 
         return image, label_matrix
 
-# %% ../nbs/53_yolov1.ipynb 25
+# %% ../nbs/53_yolov1.ipynb 33
 """ 
 Information about architecture config:
 Tuple is structured by (kernel_size, filters, stride, padding) 
@@ -476,7 +476,7 @@ architecture_config = [
     (3, 1024, 1, 1),
 ]
 
-# %% ../nbs/53_yolov1.ipynb 26
+# %% ../nbs/53_yolov1.ipynb 34
 class CNNBlock(nn.Module):
     def __init__(self, in_channels, out_channels, **kwargs):
         super(CNNBlock, self).__init__()
@@ -487,7 +487,7 @@ class CNNBlock(nn.Module):
     def forward(self, x):
         return self.leakyrelu(self.batchnorm(self.conv(x)))
 
-# %% ../nbs/53_yolov1.ipynb 28
+# %% ../nbs/53_yolov1.ipynb 36
 class Yolov1(nn.Module):
     def __init__(self, in_channels=3, **kwargs):
         super(Yolov1, self).__init__()
@@ -560,7 +560,7 @@ class Yolov1(nn.Module):
             nn.Linear(496, S * S * (C + B * 5)),
         )
 
-# %% ../nbs/53_yolov1.ipynb 31
+# %% ../nbs/53_yolov1.ipynb 39
 class YoloLoss(nn.Module):
     """
     Calculate the loss for yolo (v1) model
@@ -680,7 +680,7 @@ class YoloLoss(nn.Module):
 
         return loss
 
-# %% ../nbs/53_yolov1.ipynb 35
+# %% ../nbs/53_yolov1.ipynb 44
 class Compose(object):
     def __init__(self, transforms):
         self.transforms = transforms
